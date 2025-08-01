@@ -101,10 +101,10 @@
 <body>
 
 <div class="container">
-  <h1>スプレッドシート検索</h1>
+  <h1>Hayama Soica残高確認</h1>
   <form id="searchForm">
-    <input type="text" id="inputB" placeholder="B列の値を入力" autocomplete="off" />
-    <button type="submit" id="searchBtn">検索</button>
+    <input type="text" id="inputB" placeholder="完全なユーザーIDを入力" autocomplete="off" />
+    <button type="submit" id="searchBtn">残高確認</button>
   </form>
   <div id="result"></div>
 </div>
@@ -129,9 +129,9 @@
       .then(response => response.json())
       .then(data => {
         if (data.result !== null) {
-          resultDiv.textContent = `対応するC列の値: ${data.result}`;
+          resultDiv.textContent = `あなたの残高: ${data.result}`;
         } else {
-          resultDiv.textContent = '該当するデータがありません';
+          resultDiv.textContent = 'まだ未参加かユーザーIDが間違っています';
         }
       })
       .catch(err => {
