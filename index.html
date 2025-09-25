@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Hayama Soica残高確認</title>
+  <title>Koren Soica残高確認</title>
   <style>
     /* ベースリセット */
     * {
@@ -111,7 +111,7 @@
 <body>
 <div class="container">
   <img src="https://i.imgur.com/y2BB1np.png" alt="バナー" class="banner" />
-  <h1>Hayama Soica残高確認</h1>
+  <h1>Koren Soica残高確認</h1>
   <form id="searchForm">
     <input type="text" id="inputB" placeholder="完全なユーザーIDを入力" autocomplete="off" />
     <button type="submit" id="searchBtn">残高確認</button>
@@ -129,13 +129,13 @@
     const bValue = inputB.value.trim();
     resultDiv.textContent = '';
     if (!bValue) {
-      alert('正しい値を入力してください');
+      alert('正しいユーザーネームを入力してください');
       return;
     }
 
     resultDiv.textContent = '検索中...';
 
-    fetch(`https://script.google.com/macros/s/AKfycbzZ66QEJ_KrcOUlmdRvihSGqQ6s7vVzOOS9qBYCqpgyEVKx2vP61zPwDcsBoriloc4h/exec?b=${encodeURIComponent(bValue)}`)
+    fetch(`https://script.google.com/macros/s/AKfycbxbRbE4fuzmo-T-lAfkPFOEqm3c0DTXKxgxotOfGeJxCrsN5v3rscFEU6M3UnUfW_0k/exec?b=${encodeURIComponent(bValue)}`)
       .then(response => response.json())
       .then(data => {
         if (data.result !== null) {
