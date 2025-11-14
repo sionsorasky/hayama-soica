@@ -36,7 +36,8 @@
 
     .balance-container,
     .container,
-    .info-box {
+    .info-box,
+    .blog-box {
       background: white;
       width: 100%;
       border-radius: 8px;
@@ -93,7 +94,8 @@
       background-color: #005a9e;
     }
 
-    .info-box h2 {
+    .info-box h2,
+    .blog-box h2 {
       font-size: 1rem;
       font-weight: 600;
       margin-bottom: 8px;
@@ -105,6 +107,82 @@
       color: #333;
       margin: 0;
       text-align: left;
+    }
+
+    /* --- ブログカード --- */
+    .blog-card {
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-top: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+      cursor: pointer;
+      text-align: left;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+    }
+
+    .blog-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.16);
+    }
+
+    .blog-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #333;
+    }
+
+    .blog-subtitle {
+      font-size: 0.8rem;
+      color: #555;
+      margin-top: 4px;
+    }
+
+    /* --- ポップアップ --- */
+    .popup-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(4px);
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      z-index: 999;
+    }
+
+    .popup {
+      background: white;
+      width: 100%;
+      max-width: 500px;
+      max-height: 85vh;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+      padding: 20px;
+      overflow-y: auto;
+      position: relative;
+      animation: fadein 0.2s ease-out;
+    }
+
+    @keyframes fadein {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: #ddd;
+      border: none;
+      border-radius: 4px;
+      padding: 4px 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .close-btn:hover {
+      background: #bbb;
     }
 
     @media (min-width: 768px) {
@@ -130,7 +208,8 @@
       }
 
       .balance-container,
-      .info-box {
+      .info-box,
+      .blog-box {
         max-width: 900px;
         font-size: 1.1rem;
       }
@@ -169,6 +248,32 @@
     <p>カード：sionskyy<br>システム：sionskyy<br>デザイン：GPT5</p>
   </div>
 
+  <!-- ========= ブログ枠 ========= -->
+  <div class="blog-box">
+    <h2>ブログ</h2>
+
+    <!-- ブログカード -->
+    <div class="blog-card" id="openBlog">
+      <div class="blog-title">リアルカードの作り方</div>
+      <div class="blog-subtitle">soicaカードをあなたの財布に</div>
+    </div>
+
+  </div>
+
+  <!-- ========= ポップアップ ========= -->
+  <div class="popup-overlay" id="popupOverlay">
+    <div class="popup">
+      <button class="close-btn" id="closePopup">×</button>
+      <h2>リアルカードの作り方</h2>
+      <p>
+        どうも、しおんです。soicaカードは仮想世界上のカードですが、リアルでも持ちたいと思ったことはありませんか？そんなsoicaファンのために今回はリアルカードの作り方を解説します。<br>
+        ※カードプリンターがある人もしくはいつでも使える人はそのカードプリンターにsoicaの画像を印刷するだけで済みます。この記事はそれ以外の人向けです。<br>
+        <br>
+        この記事は書きかけです<br><br>
+      </p>
+    </div>
+  </div>
+
   <script>
     const searchForm = document.getElementById('searchForm');
     const inputB = document.getElementById('inputB');
@@ -182,7 +287,6 @@
         alert('正しい値を入力してください');
         return;
       }
-
       balanceDiv.textContent = '検索中...';
 
       fetch(`https://script.google.com/macros/s/AKfycbzZ66QEJ_KrcOUlmdRvihSGqQ6s7vVzOOS9qBYCqpgyEVKx2vP61zPwDcsBoriloc4h/exec?b=${encodeURIComponent(bValue)}`)
@@ -198,6 +302,25 @@
           balanceDiv.textContent = 'エラーが発生しました';
           console.error(err);
         });
+    });
+
+    /* --- ブログポップアップ --- */
+    const openBlog = document.getElementById('openBlog');
+    const popupOverlay = document.getElementById('popupOverlay');
+    const closePopup = document.getElementById('closePopup');
+
+    openBlog.addEventListener('click', () => {
+      popupOverlay.style.display = 'flex';
+    });
+
+    closePopup.addEventListener('click', () => {
+      popupOverlay.style.display = 'none';
+    });
+
+    popupOverlay.addEventListener('click', (e) => {
+      if (e.target === popupOverlay) {
+        popupOverlay.style.display = 'none';
+      }
     });
   </script>
 </body>
